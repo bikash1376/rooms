@@ -35,12 +35,12 @@ const MEETING_SEATS: Record<AgentId, Spot> = {
   biff: { x: 400, y: 704, dir: "up" },
 };
 
-// Control Room (C) — top room; only Bikash (the human) belongs here. The label
+// Control Room (C) — top room; only the admin (the human) belongs here. The label
 // just marks it; agents are never routed inside.
 const CONTROL_ROOM = { x1: 672, y1: 96, x2: 1088, y2: 256 };
 
-// The task board — a wall monitor in the Office (O). Bikash walks up to it and
-// presses C to open the assignment board. `x,y` is the spot he stands to read it.
+// The task board — a wall monitor in the Office (O). The player walks up to it and
+// presses C to open the assignment board. `x,y` is the spot to stand to read it.
 const BOARD = { x: 960, y: 336, radius: 96 };
 
 type Mode = "work" | "meet";
@@ -258,7 +258,7 @@ export default class OfficeScene extends Phaser.Scene {
     g.lineStyle(2, 0x0072ff, 0.5);
     g.strokeRect(x1, y1, x2 - x1, y2 - y1);
     this.controlRoomLabel = this.add
-      .text((x1 + x2) / 2, y1 + 14, "CONTROL ROOM · Bikash only", {
+      .text((x1 + x2) / 2, y1 + 14, "CONTROL ROOM · Admin only", {
         fontFamily: "monospace",
         fontSize: "12px",
         color: "#0072ff",
@@ -516,7 +516,7 @@ export default class OfficeScene extends Phaser.Scene {
     this.updatePlayer();
     for (const a of this.actors) this.updateActor(a, dt);
 
-    // Task board: prompt when Bikash is close, open on C.
+    // Task board: prompt when the player is close, open on C.
     const dBoard = Phaser.Math.Distance.Between(this.player.x, this.player.y, BOARD.x, BOARD.y);
     const near = dBoard < BOARD.radius;
     if (near !== this.boardNear) {

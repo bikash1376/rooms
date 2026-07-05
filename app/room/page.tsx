@@ -182,7 +182,8 @@ export default function Room() {
         }
         scene.setActiveSpeaker(null);
       } catch {
-        scene.showBubble("nova", "The meeting fell apart — check the server.");
+        const fallbackId = config[0]?.id ?? "nova";
+        scene.showBubble(fallbackId, "The meeting fell apart — check the server.");
       } finally {
         runningRef.current = false;
         setRunning(false);
@@ -242,7 +243,7 @@ export default function Room() {
         onSubmit={(e) => {
           e.preventDefault();
           // Drop focus so keyboard control returns to the player — otherwise the
-          // input stays focused and WASD won't move Bikash after calling a meeting.
+          // input stays focused and WASD won't move the player after calling a meeting.
           (document.activeElement as HTMLElement | null)?.blur();
           const t = topic.trim();
           if (t) goMeet(t);
@@ -285,7 +286,7 @@ export default function Room() {
         className="z-30 flex h-full flex-col overflow-hidden border-l border-white/10 bg-[#0c1622]/95 backdrop-blur transition-[width] duration-200"
         style={{ width: sidebar ? "min(400px, 92vw)" : 0 }}
       >
-        {/* Admin office-mode switch — the human (Bikash) drives the whole team. */}
+        {/* Admin office-mode switch — the human (admin) drives the whole team. */}
         <div className="border-b border-white/10 p-3 pr-14">
           <div className="mb-1.5 flex items-center justify-between">
             <span className="font-geist text-[10px] uppercase tracking-wider text-white/40">
@@ -370,7 +371,7 @@ export default function Room() {
         </div>
       </aside>
 
-      {/* "Press C" board prompt — only when Bikash is standing at the board */}
+      {/* "Press C" board prompt — only when the player is standing at the board */}
       {boardNear && !boardOpen && !loading && (
         <div className="pointer-events-none absolute left-1/2 top-4 z-30 -translate-x-1/2 rounded-lg bg-[#0c1622]/90 px-4 py-2 font-geist text-sm text-white shadow-lg backdrop-blur">
           Press <kbd className="rounded bg-[#0072ff] px-1.5 py-0.5 text-xs font-bold">C</kbd> to open

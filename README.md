@@ -1,6 +1,6 @@
 # Rooms — AI Agents in a Pixel Office with Persistent Memory
 
-> Walk into a **Gather.town-style pixel office** as **Bikash**. Three AI coworkers live here — two remember everything across sessions using **Cognee Cloud**, one woke up with no memory at all. Convene a meeting, restart the app, and watch who still knows your name.
+> Walk into a **Gather.town-style pixel office** as the **Admin**. Three AI coworkers live here — two remember everything across sessions using **Cognee Cloud**, one woke up with no memory at all. Convene a meeting, restart the app, and watch who still knows your name.
 
 Built by **Kataaksh** (Bikash & Divyansh) for the **WeMakeDevs × Cognee** hackathon — *"The Hangover Part AI: Where's My Context?"* · Track: **Best Use of Cognee Cloud**.
 
@@ -10,11 +10,11 @@ Built by **Kataaksh** (Bikash & Divyansh) for the **WeMakeDevs × Cognee** hacka
 
 **Rooms** is an interactive pixel-art office simulator where AI agents hold live meetings, remember past decisions, and build a shared knowledge graph — all powered by **Cognee Cloud's** hybrid graph + vector memory layer.
 
-The key insight: **memory is what separates a useful AI teammate from a goldfish**. This project makes that difference impossible to miss by putting a memory-backed agent and an amnesiac in the same room.
+The key insight: **memory is what separates a useful AI teammate from a goldfish**. This project makes that difference impossible to miss by putting memory-backed agents and an amnesiac in the same room.
 
 ### The Core Demo
 
-1. **You are Bikash** — walk around the office with WASD/arrow keys.
+1. **You are the Admin** — walk around the office with WASD/arrow keys.
 2. **Call a meeting** — type a topic, and the three AI agents gather at the table to discuss it with real LLM-generated dialogue.
 3. **Restart the app** — Ctrl-C, `npm run dev`. Call another meeting.
 4. **Watch the difference** — agents with Cognee memory reference last meeting's decisions by name. The amnesiac asks *"who are you? what project is this?"* every single time.
@@ -48,13 +48,13 @@ Core Libraries
 
 ## 🤖 The Agents
 
-| Agent | Role | Memory | What happens |
-|-------|------|--------|-------------|
-| **Divyansh** (Nova) | Design Engineer | ✅ Cognee | Recalls past decisions, references coworkers by name, builds on prior context |
-| **Maaz** (Atlas) | AI Engineer | ✅ Cognee | Same — full recall, picks up where the team left off |
-| **Harsh** (Biff) | Web Developer | ❌ None | No recall, no remember. Every meeting is day one. The control variable. |
+| Agent | Default Role | Memory | What happens |
+|-------|-------------|--------|-------------|
+| **Agent 1** | Design Engineer | ✅ Cognee | Recalls past decisions, references coworkers by name, builds on prior context |
+| **Agent 2** | AI Engineer | ✅ Cognee | Same — full recall, picks up where the team left off |
+| **Agent 3** | Web Developer | ❌ None | No recall, no remember. Every meeting is day one. The control variable. |
 
-The admin (you) can rename agents, change their roles, and edit their system prompts from the **Settings** tab — changes apply to the next meeting without losing memory history.
+All agent names, roles, and system prompts are fully **admin-editable** from the Settings tab. Changes apply to the next meeting without losing memory history.
 
 ---
 
@@ -71,8 +71,8 @@ Every agent turn follows a three-step loop:
 After each meeting, `cognify` is called on all datasets so the knowledge graph is built and searchable for the next session.
 
 **Memory is split into:**
-- **Per-agent datasets** (`agent_nova`, `agent_atlas`) — private history
-- **Shared `company_brain`** — cross-agent decisions, coworker roster, project nodes
+- **Per-agent datasets** — private history for each memory-backed agent
+- **Shared brain** — cross-agent decisions, coworker roster, project nodes
 
 The **Memory** panel renders each agent's knowledge graph as a live constellation; the amnesiac's flatlines to `NO SIGNAL`.
 
@@ -89,8 +89,8 @@ The **Memory** panel renders each agent's knowledge graph as a live constellatio
 ### Installation
 
 ```bash
-git clone <your-repo-url>
-cd cognee-proj
+git clone https://github.com/bikash1376/rooms.git
+cd rooms
 npm install
 ```
 
@@ -130,7 +130,7 @@ npm run dev        # http://localhost:3000
 ## 🎮 Usage
 
 1. **Landing page** → click **Enter Room** → a 3-second loader boots the office.
-2. **Walk around** with WASD / arrow keys — you are Bikash (the blue character).
+2. **Walk around** with WASD / arrow keys — you are the admin (the blue character).
 3. **Type a topic** in the bottom bar and click **Call Meeting** — agents gather and discuss in real-time speech bubbles.
 4. **Stop a meeting** — click the red **■ Stop** button in the topic bar or **Stop meeting** in the sidebar to end the session early.
 5. **Open the sidebar** (☰ button) to switch between:
@@ -149,7 +149,7 @@ Fill in `COGNEE_*` and `LLM_*` env vars to go live — Cognee and the LLM are in
 
 1. Call a meeting on any topic → the agents reach a decision.
 2. **Restart the app** (`Ctrl-C`, `npm run dev`). Memory lives in Cognee (or `.data/` in mock mode).
-3. Call another meeting → Nova & Atlas reference the prior decision; Biff is lost.
+3. Call another meeting → Memory-backed agents reference the prior decision; the amnesiac is lost.
 4. Open the **Memory** panel to see the knowledge graph differences.
 
 ---
@@ -171,7 +171,7 @@ Fill in `COGNEE_*` and `LLM_*` env vars to go live — Cognee and the LLM are in
 ## 📁 Project Structure
 
 ```
-cognee-proj/
+rooms/
 ├── app/
 │   ├── page.tsx                 # Landing page
 │   ├── room/page.tsx            # Main office room (Phaser + sidebar)

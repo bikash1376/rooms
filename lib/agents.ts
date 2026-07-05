@@ -1,6 +1,6 @@
 import type { AgentPersona } from "./types";
 
-// The cast. Two run on Cognee memory; Biff is the amnesiac who skips recall
+// The cast. Two run on Cognee memory; the third is the amnesiac who skips recall
 // and remember entirely — the live proof of what a memory layer buys you.
 export const AGENTS: AgentPersona[] = [
   {

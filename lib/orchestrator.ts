@@ -28,7 +28,7 @@ async function recallFor(agent: AgentPersona, topic: string, deep: boolean): Pro
   if (!agent.remembers) return { coworkers: [], decisions: [], topics: [] }; // amnesiac
 
   // Coworkers + topics come from the local mirror — instant, and current names
-  // (fixes stale "Nova/Atlas"). Store decisions are the default.
+  // (fixes stale names after admin renames). Store decisions are the default.
   const coworkers = getAgents()
     .filter((a) => a.id !== agent.id)
     .map((a) => a.name);

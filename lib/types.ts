@@ -8,7 +8,7 @@ export interface AgentPersona {
   role: string;
   /** Short personality prompt fed to the dialogue LLM. */
   persona: string;
-  /** Does this agent have persistent Cognee memory? Biff (the amnesiac) does not. */
+  /** Does this agent have persistent Cognee memory? The amnesiac agent does not. */
   remembers: boolean;
   /** Cognee dataset that holds this agent's private memory. */
   dataset: string;
