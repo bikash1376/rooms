@@ -1,0 +1,23 @@
+/node_modules
+/.next
+/out
+/build
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# local secrets + the mock memory store
+.env
+.env.local
+/.data
+
+# agent/editor config (local only)
+/.agents
+/.claude
+/ref
+/spec
+skills-lock.json
+
+# os / editor
+*.log
+.DS_Store
+Thumbs.db

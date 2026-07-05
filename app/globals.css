@@ -1,0 +1,105 @@
+/* Bitcount Single (landing display) + Geist (sidebar UI). Neither ships in this
+   Next version's next/font data, so both load from Google Fonts directly. */
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single&family=Geist:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #0b0a1f;
+  color: #e8e4ff;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  /* Vegas-at-4am: neon haze bleeding up from the strip, grain over the top */
+  background-image:
+    radial-gradient(120% 80% at 15% -10%, rgba(255, 61, 139, 0.16), transparent 55%),
+    radial-gradient(120% 80% at 90% 0%, rgba(55, 226, 213, 0.12), transparent 50%),
+    radial-gradient(140% 100% at 50% 120%, rgba(255, 194, 75, 0.08), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Control-room CRT scanline overlay, pinned above everything, non-interactive */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+@layer utilities {
+  .text-glow-cyan {
+    text-shadow: 0 0 8px rgba(55, 226, 213, 0.7), 0 0 2px rgba(55, 226, 213, 0.9);
+  }
+  .text-glow-magenta {
+    text-shadow: 0 0 10px rgba(255, 61, 139, 0.7), 0 0 2px rgba(255, 61, 139, 0.9);
+  }
+  .text-glow-gold {
+    text-shadow: 0 0 10px rgba(255, 194, 75, 0.6), 0 0 2px rgba(255, 194, 75, 0.9);
+  }
+  /* Pixel-crisp scaling for the office canvas */
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  .marquee-border {
+    box-shadow:
+      inset 0 0 0 1px rgba(44, 39, 82, 1),
+      0 0 0 1px rgba(11, 10, 31, 1),
+      inset 0 0 30px rgba(255, 61, 139, 0.06);
+  }
+}
+
+/* Reduced motion: kill all the ambient neon animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  body::after {
+    display: none;
+  }
+}
+
+/* Thin neon scrollbar for the transcript */
+.neon-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.neon-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.neon-scroll::-webkit-scrollbar-thumb {
+  background: #2c2752;
+  border-radius: 999px;
+}
+.neon-scroll::-webkit-scrollbar-thumb:hover {
+  background: #37e2d5;
+}
+
+/* Keyboard focus — visible, on-brand, never removed */
+:focus-visible {
+  outline: 2px solid #37e2d5;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
